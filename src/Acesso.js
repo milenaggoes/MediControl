@@ -12,14 +12,14 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 
 const api = axios.create({
-  baseURL: 'https://medicontrol-2b05c-default-rtdb.firebaseio.com',
+  baseURL: 'https://abcd-e8b67-default-rtdb.asia-southeast1.firebasedatabase.app',
 });
 
 const FuncionarioItem = (props) => {
   return (
     <View style={styles.containerItem}>
         
-      <View style={{ gap: 10, width: 180,shadowColor: 'black'}}>
+      <View style={{ gap: 10, width: 180, shadowColor: 'black'}}>
         <Text style={{ fontSize: 15, fontWeight: '500' }}>{props.item.nome}</Text>
         <Text style={{ fontSize: 15 }}>{props.item.cargo}</Text>
         <Text style={{ fontSize: 15 }}>{props.item.identificacao}</Text>
@@ -119,8 +119,8 @@ const Funcionario = () => {
 
   return (
     <View style={{ flex: 1, backgroundColor: '#fff' }}>
-      <View style={{ flex: 6, justifyContent: 'space-evenly', padding: 10 }}>
-        <Text style={{ fontSize: 15, textAlign: 'center', marginTop: 20 }}>
+      <View style={{ flex: 1, justifyContent: 'space-evenly', paddingHorizontal: 10 }}>
+        <Text style={{ fontSize: 15, textAlign: 'center'}}>
           Cadastre um funcionário para que ele tenha acesso aos medicamentos
         </Text>
 
@@ -156,12 +156,12 @@ const Funcionario = () => {
             style={styles.botaoCadastro}
             onPress={lerFuncionarios}>
             <Text style={{ fontSize: 15, color: '#fff', fontWeight: '600' }}>
-              Ver Paletas
+              Ver Acessos
             </Text>
           </TouchableOpacity>
         </View>
       </View>
-      <View style={{ flex: 4, backgroundColor: '#F2F2F2' }}>
+      <View style={{ flex: 1, backgroundColor: '#F2F2F2' }}>
         <FlatList
           data={lista}
           renderItem={(prp) => (

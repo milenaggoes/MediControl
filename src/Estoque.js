@@ -6,27 +6,32 @@ import {
   View,
   TouchableOpacity,
   StyleSheet,
-  Picker
+  Image
 } from 'react-native';
 import axios from 'axios';
 import { MaterialIcons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 
 const api = axios.create({
-  baseURL: 'https://medicontrol-2b05c-default-rtdb.firebaseio.com',
+  baseURL: 'https://abcd-e8b67-default-rtdb.asia-southeast1.firebasedatabase.app',
 });
 
 const MedicamentoItem = (props) => {
+
   return (
     <View style={styles.containerItem}>
         
-      <View style={{ gap: 10, width: 180,shadowColor: 'black'}}>
-        <Text style={{ fontSize: 15, fontWeight: '500' }}>{props.item.nome}</Text>
-        <Text style={{ fontSize: 15 }}>{props.item.descricao}</Text>
-        <Text style={{ fontSize: 15 }}>{props.item.quantidade}</Text>
+      <View style={{ gap: 25, height: 250, shadowColor: 'black', justifyContent: 'center', alignItems: 'center',paddingHorizontal: 5}}>
+      <Image
+          source={{ uri: props.item.url }}
+          style={{ width: 90, height: 110 }}
+        />
+        <Text style={{ fontSize: 18, fontWeight: '500' }}>{props.item.nome}</Text>
+        <Text style={{ fontSize: 15,textAlign: 'center' }}>{props.item.descricao}</Text>
+        <Text style={{ fontSize: 15 }}>Unidades disponíveis: {props.item.quantidade}</Text>
       </View>
 
-      <View style={{ alignItems: 'center', justifyContent: 'space-between', gap:15 }}>
+      <View style={{marginTop: 35, alignItems: 'center', gap:60, flexDirection: 'row'}}>
         <TouchableOpacity
           onPress={() => {
             props.onEditar(props.item);
@@ -47,6 +52,7 @@ const MedicamentoItem = (props) => {
 
 const Medicamento = () => {
   const [id, setId] = useState(null);
+  const [url, setUrl] = useState('');
   const [nome, setNome] = useState('');
   const [descricao, setDescricao] = useState('');
   const [quantidade, setQuantidade] = useState('');
@@ -65,7 +71,7 @@ const Medicamento = () => {
         setLista(listaNova);
       })
       .catch(() => {
-        alert('Erro ao exibir produtos em estoque');
+        alert('Erro ao exibir medicamentos em estoque');
       });
   };
 
@@ -81,6 +87,7 @@ const Medicamento = () => {
   };
 
   const editar = (obj) => {
+    setUrl(obj.url);
     setNome(obj.nome);
     setDescricao(obj.descricao);
     setQuantidade(obj.quantidade),
@@ -88,6 +95,7 @@ const Medicamento = () => {
   };
 
   const limparCampos = () => {
+    setUrl('');
     setNome('');
     setDescricao('');
     setQuantidade('');
@@ -97,7 +105,7 @@ const Medicamento = () => {
   const salvarMedicamento = () => {
     
     if (id) {
-      api.put('/medicamentos/'+ id +'.json', { nome, descricao,quantidade })
+      api.put('/medicamentos/'+ id +'.json', { url, nome, descricao,quantidade })
         .then(() => {
           limparCampos();
           lerMedicamentos();
@@ -106,7 +114,7 @@ const Medicamento = () => {
           alert('Erro ao atualizar dados do medicamento');
         });
     } else {
-      api.post('/medicamentos.json',{nome, descricao, quantidade })
+      api.post('/medicamentos.json',{url,nome, descricao, quantidade })
         .then(() => {
           limparCampos();
           lerMedicamentos();
@@ -122,13 +130,21 @@ const Medicamento = () => {
     lerMedicamentos();
   }, []);
 
+
   return (
 
-    <View style={{ flex: 1, backgroundColor: '#fff' }}>     
-      <View style={{flex: 4,justifyContent: 'space-evenly', padding: 10 }}>
-        <Text style={{ fontSize: 15, textAlign: 'center', marginTop: 20 }}>
+    <View style={{ flex: 1, backgroundColor: '#fff' }}>   
+      <View style={{flex: 4,justifyContent: 'space-evenly', paddingHorizontal: 10 }}>
+        <Text style={{ fontSize: 15, textAlign: 'center'}}>
           Cadastre um medicamento no estoque
         </Text>
+        <TextInput
+          placeholder="Endereço da imagem"
+          value={url}
+          onChangeText={setUrl}
+          style={styles.campoCadastro}
+        />
+        
         <View style={{flexDirection: 'row', gap:7}}>
         <TextInput
           placeholder="Nome "
@@ -182,7 +198,7 @@ const styles = StyleSheet.create({
     campoCadastro:{
         backgroundColor: '#DCDCDC',
         borderRadius: 8,
-        paddingVertical: 7,
+        paddingVertical: 5,
         paddingLeft: 25,
     },
     botaoCadastro:{
@@ -193,12 +209,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     containerItem:{
-        flexDirection: 'row',
         backgroundColor: '#fff',
         borderRadius: 5,
         margin: 15,
-        padding: 20,
-        justifyContent: 'space-between',
+        padding: 15,
         alignItems: 'center',
         elevation: 10
       }

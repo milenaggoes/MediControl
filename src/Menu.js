@@ -3,15 +3,17 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { View } from 'react-native';
 import { Funcionario } from './Acesso';
 import { Medicamento } from './Estoque';
+import { Historico } from './Historico';
 import { MaterialCommunityIcons} from '@expo/vector-icons';
 import { Fontisto} from '@expo/vector-icons';
-
+import React, { useState } from 'react';
 const Tab = createBottomTabNavigator();
 
 const Menu = () => {
 
   return (
     <View style={{ flex: 1 }}>
+
      
       <NavigationContainer>
         <Tab.Navigator>
@@ -19,7 +21,6 @@ const Menu = () => {
             name="Acesso"
             component={Funcionario}
             options={{
-              headerShown: false,
               tabBarIcon: (props) => <MaterialCommunityIcons
               name="account-key" {...props} />,
             }}
@@ -28,13 +29,23 @@ const Menu = () => {
             name="Estoque"
             component={Medicamento}
             options={{
-              headerShown: false,
               tabBarIcon: (props) => <Fontisto
               name="pills" {...props} />,
             }}
           />
+   
+        <Tab.Screen
+            name="Historico"
+            component={Historico}
+            options={{
+              tabBarIcon: (props) => <Fontisto
+              name="history" {...props} />,
+            }}
+          />
         </Tab.Navigator>
+        
       </NavigationContainer>
+
     </View>
   );
 };

@@ -50,7 +50,7 @@ export default function App() {
   return (
     <View style={{ flex: 1 }}>
      
-      {token ? (
+      {token ? ( 
         <Menu />
       ) : (
         <View style={{ flex: 1 }}>
