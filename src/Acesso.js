@@ -12,31 +12,22 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 
 const api = axios.create({
-  baseURL: 'https://abcd-e8b67-default-rtdb.asia-southeast1.firebasedatabase.app',
+  baseURL: 'https://medicontrol-2b05c-default-rtdb.firebaseio.com',
 });
 
 const FuncionarioItem = (props) => {
   return (
     <View style={styles.containerItem}>
-        
-      <View style={{ gap: 10, width: 180, shadowColor: 'black'}}>
-        <Text style={{ fontSize: 15, fontWeight: '500' }}>{props.item.nome}</Text>
-        <Text style={{ fontSize: 15 }}>{props.item.cargo}</Text>
-        <Text style={{ fontSize: 15 }}>{props.item.identificacao}</Text>
+      <View style={styles.itemTextContainer}>
+        <Text style={styles.itemText}>{props.item.nome}</Text>
+        <Text style={styles.itemText}>{props.item.cargo}</Text>
+        <Text style={styles.itemText}>{props.item.identificacao}</Text>
       </View>
-
-      <View style={{ alignItems: 'center', justifyContent: 'space-between', gap:15 }}>
-        <TouchableOpacity
-          onPress={() => {
-            props.onEditar(props.item);
-          }}>
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity onPress={() => props.onEditar(props.item)}>
           <AntDesign name="edit" size={25} />
         </TouchableOpacity>
-
-        <TouchableOpacity
-          onPress={() => {
-            props.onApagar(props.item);
-          }}>
+        <TouchableOpacity onPress={() => props.onApagar(props.item)}>
           <MaterialIcons name="delete-outline" size={30} />
         </TouchableOpacity>
       </View>
@@ -118,11 +109,11 @@ const Funcionario = () => {
   };
 
   return (
-    <View style={{ flex: 1, backgroundColor: '#fff' }}>
-      <View style={{ flex: 1, justifyContent: 'space-evenly', paddingHorizontal: 10 }}>
-        <Text style={{ fontSize: 15, textAlign: 'center'}}>
-          Cadastre um funcionário para que ele tenha acesso aos medicamentos
-        </Text>
+      <View style={styles.mainContainer}>
+        <View style={styles.innerContainer}>
+          <Text style={styles.descriptionText}>
+            Cadastre um funcionário para que ele tenha acesso aos medicamentos
+          </Text>
 
         <TextInput
           placeholder="Nome"
@@ -173,30 +164,64 @@ const Funcionario = () => {
   );
 };
 
+
 const styles = StyleSheet.create({
-    campoCadastro:{
-        backgroundColor: '#DCDCDC',
-        borderRadius: 8,
-        paddingVertical: 7,
-        paddingLeft: 25,
-    },
-    botaoCadastro:{
-        width: 160,
-        paddingVertical: 10,
-        backgroundColor: '#79ADE6',
-        borderRadius: 8,
-        alignItems: 'center',
-    },
-    containerItem:{
-        flexDirection: 'row',
-        backgroundColor: '#fff',
-        borderRadius: 5,
-        margin: 15,
-        padding: 20,
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        elevation: 10
-      }
-})
+  containerItem: {
+    flexDirection: 'row',
+    backgroundColor: '#fff',
+    borderRadius: 5,
+    margin: 15,
+    padding: 20,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    elevation: 10,
+  },
+  itemTextContainer: {
+    gap: 10,
+    width: 180,
+    shadowColor: 'black',
+  },
+  itemText: {
+    fontSize: 15,
+    fontWeight: '500',
+  },
+  buttonContainer: {
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 15,
+  },
+  campoCadastro: {
+    backgroundColor: '#DCDCDC',
+    borderRadius: 8,
+    paddingVertical: 7,
+    paddingLeft: 25,
+  },
+  botaoCadastro: {
+    width: 160,
+    paddingVertical: 10,
+    backgroundColor: '#79ADE6',
+    borderRadius: 8,
+    alignItems: 'center',
+  },
+  mainContainer: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+  innerContainer: {
+    flex: 1,
+    justifyContent: 'space-evenly',
+    paddingHorizontal: 10,
+  },
+  descriptionText: {
+    fontSize: 15,
+    textAlign: 'center',
+  },
+  buttonText: {
+    fontSize: 15,
+    color: '#fff',
+    fontWeight: '600',
+  },
+});
+
 
 export { Funcionario };

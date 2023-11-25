@@ -13,42 +13,34 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 
 const api = axios.create({
-  baseURL: 'https://abcd-e8b67-default-rtdb.asia-southeast1.firebasedatabase.app',
+  baseURL: 'https://medicontrol-2b05c-default-rtdb.firebaseio.com',
 });
 
 const MedicamentoItem = (props) => {
 
   return (
     <View style={styles.containerItem}>
-        
-      <View style={{ gap: 25, height: 250, shadowColor: 'black', justifyContent: 'center', alignItems: 'center',paddingHorizontal: 5}}>
-      <Image
+      <View style={{ gap: 25, height: 250, shadowColor: 'black', justifyContent: 'center', alignItems: 'center', paddingHorizontal: 5 }}>
+        <Image
           source={{ uri: props.item.url }}
           style={{ width: 90, height: 110 }}
         />
         <Text style={{ fontSize: 18, fontWeight: '500' }}>{props.item.nome}</Text>
-        <Text style={{ fontSize: 15,textAlign: 'center' }}>{props.item.descricao}</Text>
+        <Text style={{ fontSize: 15, textAlign: 'center' }}>{props.item.descricao}</Text>
         <Text style={{ fontSize: 15 }}>Unidades disponíveis: {props.item.quantidade}</Text>
       </View>
-
-      <View style={{marginTop: 35, alignItems: 'center', gap:60, flexDirection: 'row'}}>
-        <TouchableOpacity
-          onPress={() => {
-            props.onEditar(props.item);
-          }}>
+      <View style={{ marginTop: 35, alignItems: 'center', gap: 60, flexDirection: 'row' }}>
+        <TouchableOpacity onPress={() => props.onEditar(props.item)}>
           <AntDesign name="edit" size={25} />
         </TouchableOpacity>
-
-        <TouchableOpacity
-          onPress={() => {
-            props.onApagar(props.item);
-          }}>
+        <TouchableOpacity onPress={() => props.onApagar(props.item)}>
           <MaterialIcons name="delete-outline" size={30} />
         </TouchableOpacity>
       </View>
     </View>
   );
 };
+
 
 const Medicamento = () => {
   const [id, setId] = useState(null);
@@ -133,9 +125,9 @@ const Medicamento = () => {
 
   return (
 
-    <View style={{ flex: 1, backgroundColor: '#fff' }}>   
-      <View style={{flex: 4,justifyContent: 'space-evenly', paddingHorizontal: 10 }}>
-        <Text style={{ fontSize: 15, textAlign: 'center'}}>
+    <View style={styles.mainContainer}>
+      <View style={styles.innerContainer}>
+        <Text style={styles.descriptionText}>
           Cadastre um medicamento no estoque
         </Text>
         <TextInput
@@ -181,41 +173,58 @@ const Medicamento = () => {
 
         </View>
       </View>
-    
-      <View style={{flex: 6, backgroundColor: '#F2F2F2' }}>
-        <FlatList nestedScrollEnabled={true} 
+      <View style={{ flex: 6, backgroundColor: '#F2F2F2' }}>
+        <FlatList nestedScrollEnabled={true}
           data={lista}
           renderItem={(prp) => (
             <MedicamentoItem {...prp} onApagar={apagar} onEditar={editar} />
           )}
         />
       </View>
-      </View>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-    campoCadastro:{
-        backgroundColor: '#DCDCDC',
-        borderRadius: 8,
-        paddingVertical: 5,
-        paddingLeft: 25,
-    },
-    botaoCadastro:{
-        width: 160,
-        paddingVertical: 10,
-        backgroundColor: '#79ADE6',
-        borderRadius: 8,
-        alignItems: 'center',
-    },
-    containerItem:{
-        backgroundColor: '#fff',
-        borderRadius: 5,
-        margin: 15,
-        padding: 15,
-        alignItems: 'center',
-        elevation: 10
-      }
-})
+  campoCadastro: {
+    backgroundColor: '#DCDCDC',
+    borderRadius: 8,
+    paddingVertical: 5,
+    paddingLeft: 25,
+  },
+  botaoCadastro: {
+    width: 160,
+    paddingVertical: 10,
+    backgroundColor: '#79ADE6',
+    borderRadius: 8,
+    alignItems: 'center',
+  },
+  containerItem: {
+    backgroundColor: '#fff',
+    borderRadius: 5,
+    margin: 15,
+    padding: 15,
+    alignItems: 'center',
+    elevation: 10,
+  },
+  mainContainer: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+  innerContainer: {
+    flex: 4,
+    justifyContent: 'space-evenly',
+    paddingHorizontal: 10,
+  },
+  descriptionText: {
+    fontSize: 15,
+    textAlign: 'center',
+  },
+  buttonText: {
+    fontSize: 15,
+    color: '#fff',
+    fontWeight: '600',
+  },
+});
 
 export { Medicamento };
