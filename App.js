@@ -1,3 +1,11 @@
+{/* GRUPO NÓS CINCO - MEDCONTROL
+94305 - Milena Vitoria da Silva Goes
+96261 - JAKELINE SANTANA DA ROCHA
+96056 - GUILHERME DA SILVA NASCIMENTO
+96051 - GABRIELA SILVA ALVES COSTA
+*/}
+
+
 import { useState } from "react";
 import {
   TouchableOpacity,
