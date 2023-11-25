@@ -163,7 +163,7 @@ const Medicamento = () => {
         />
   	    </View>
         <TextInput
-          placeholder="Descricao"
+          placeholder="Descrição"
           value={descricao}
           onChangeText={setDescricao}
           style={styles.campoCadastro}

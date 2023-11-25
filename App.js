@@ -79,7 +79,7 @@ export default function App() {
                 fontWeight: "500",
                 textAlign: "center",
               }}>
-              MediControl
+              MedControl
             </Text>
             <Text
               style={{
